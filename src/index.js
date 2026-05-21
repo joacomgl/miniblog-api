@@ -1,4 +1,5 @@
 const express = require('express');
+const postsRouter = require('./routes/posts');
 require('dotenv').config();
 
 const db = require('./db');
@@ -26,6 +27,7 @@ app.get('/health', async (req, res) => {
 
 // Authors routes
 app.use('/authors', authorsRouter);
+app.use('/posts', postsRouter);
 
 const PORT = process.env.PORT || 3000;
 
