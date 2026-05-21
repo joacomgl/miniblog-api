@@ -1,3 +1,5 @@
+SET client_encoding = 'UTF8';
+
 -- Authors
 INSERT INTO authors (name, email, bio)
 VALUES
