@@ -50,7 +50,16 @@ const createAuthor = async (req, res) => {
     });
 
     res.status(201).json(newAuthor);
+
   } catch (error) {
+
+    // Email duplicado
+    if (error.code === '23505') {
+      return res.status(400).json({
+        message: 'Email already exists',
+      });
+    }
+
     res.status(500).json({
       message: error.message,
     });
