@@ -1,19 +1,34 @@
 const express = require('express');
 require('dotenv').config();
 
+const db = require('./db');
+const authorsRouter = require('./routes/authors');
+
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.json({ message: 'miniblog-api OK' });
+// Health check
+app.get('/health', async (req, res) => {
+  try {
+    await db.query('SELECT 1');
+
+    res.status(200).json({
+      status: 'ok',
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message,
+    });
+  }
 });
 
-if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-  });
-}
+// Authors routes
+app.use('/authors', authorsRouter);
 
-module.exports = app;
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
