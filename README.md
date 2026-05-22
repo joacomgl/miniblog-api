@@ -281,6 +281,7 @@ Puedes copiarla desde:
 ## 7. Deploy automático
 
 Cada push a GitHub actualizará automáticamente el deployment.
+URL pública: https://miniblog-api-production-0629.up.railway.app
 
 ---
 
